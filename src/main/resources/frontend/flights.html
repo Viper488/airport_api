@@ -52,10 +52,10 @@
                     '  <thead>\n' +
                     '    <tr>\n' +
                     '      <th scope="col">#</th>\n' +
-                    '      <th scope="col">cargoWeight</th>\n' +
-                    '      <th scope="col">baggageWeight</th>\n' +
-                    '      <th scope="col">totalWeight</th>\n' +
-                    '      <th scope="col">weightUnit</th>\n' +
+                    '      <th scope="col">Cargo Weight</th>\n' +
+                    '      <th scope="col">Baggage Weight</th>\n' +
+                    '      <th scope="col">Total Weight</th>\n' +
+                    '      <th scope="col">Weight Unit</th>\n' +
                     '    </tr>\n' +
                     '  </thead>\n' +
                     '  <tbody>';
@@ -82,10 +82,10 @@
                     '  <thead>\n' +
                     '    <tr>\n' +
                     '      <th scope="col">#</th>\n' +
-                    '      <th scope="col">flightsDeparting</th>\n' +
-                    '      <th scope="col">flightsArriving</th>\n' +
-                    '      <th scope="col">piecesDeparting</th>\n' +
-                    '      <th scope="col">piecesArriving</th>\n' +
+                    '      <th scope="col">Flights Departing</th>\n' +
+                    '      <th scope="col">Flights Arriving</th>\n' +
+                    '      <th scope="col">Pieces Departing</th>\n' +
+                    '      <th scope="col">Pieces Arriving</th>\n' +
                     '    </tr>\n' +
                     '  </thead>\n' +
                     '  <tbody>';
@@ -100,7 +100,7 @@
                 html += '</table>';
                 $('#tableHolder').html(html);
             }).fail(function() {
-                $('#tableHolder').html("<div style='text-align: center; color: red;'>Mam problem z wyświetleniem danych... :/ (musisz uruchomić aplikacje za pomocą MAVEN)</div>");
+                $('#tableHolder').html("<div style='text-align: center; color: red;'>Something went wrong. Check if form inputs aren't empty</div>");
             });
         }
     )
