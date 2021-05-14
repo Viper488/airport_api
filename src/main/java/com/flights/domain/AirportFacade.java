@@ -3,6 +3,7 @@ package com.flights.domain;
 import com.flights.dto.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,5 +106,59 @@ public class AirportFacade {
         }
 
         return pieces;
+    }
+
+    public FlightDetailsDto getFlightDetails(Integer flightNumber, String date){
+
+        FlightDto flightDto = flightRepository.findFlightByFlightNumberAndDepartureDateContaining(flightNumber, date).dto();
+
+        return countWeight(flightDto);
+    }
+
+    private FlightDetailsDto countWeight(FlightDto flightDto){
+
+        double weightBaggage = 0;
+        double weightCargo = 0;
+
+        List<FlightBaggageDto> flightBaggies = flightBaggageRepository.findFlightBaggageByFlightId(flightDto.getFlightId())
+                .stream()
+                .map(FlightBaggage::dto)
+                .collect(Collectors.toList());
+
+        List<FlightCargoDto> flightCargos = flightCargoRepository.findFlightCargoByFlightId(flightDto.getFlightId())
+                .stream()
+                .map(FlightCargo::dto)
+                .collect(Collectors.toList());
+
+
+        for (FlightBaggageDto flightBaggageDto:flightBaggies
+             ) {
+            BaggageDto baggageDto = baggageRepository.findBaggageById(flightBaggageDto.getBaggageId()).dto();
+
+            if(baggageDto.getWeightUnit().equals("lb")){
+                weightBaggage += baggageDto.getWeight() * 0.45359237;
+            }
+            else {
+                weightBaggage += baggageDto.getWeight();
+            }
+        }
+
+        for (FlightCargoDto flightCargoDto:flightCargos
+        ) {
+            BaggageDto cargoDto = cargoRepository.findCargoById(flightCargoDto.getCargoId()).dto();
+
+            if(cargoDto.getWeightUnit().equals("lb")) {
+                weightCargo += cargoDto.getWeight() * 0.45359237;
+            }
+            else {
+                weightCargo += cargoDto.getWeight();
+            }
+        }
+
+        return FlightDetailsDto.builder()
+                .baggageWeight(Math.round(weightBaggage*100.0)/100.0)
+                .cargoWeight(Math.round(weightCargo*100.0)/100.0)
+                .totalWeight(Math.round((weightBaggage+weightCargo)*100.0)/100.0)
+                .build();
     }
 }

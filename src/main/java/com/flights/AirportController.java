@@ -41,6 +41,11 @@ public class AirportController {
         return airportFacade.getFlightCargos(flightId);
     }
 
+    @GetMapping("/api/flights/details/{number}/{date}")
+    FlightDetailsDto getFlightDetails(@PathVariable("number") Integer flightNumber, @PathVariable("date") String date) {
+        return airportFacade.getFlightDetails(flightNumber, date);
+    }
+
     @GetMapping("/api/pieces/{iata}/{date}")
     DepartArrivalDto getPieces(@PathVariable("iata") String codeIATA, @PathVariable("date") String date) {
         return airportFacade.getDeparturesArrivalsFlightsPieces(codeIATA, date);
