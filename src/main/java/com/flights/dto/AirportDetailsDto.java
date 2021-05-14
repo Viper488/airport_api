@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class AirportDetails {
+public class AirportDetailsDto {
     Integer flightsDeparting;
     Integer flightsArriving;
     Integer piecesDeparting;

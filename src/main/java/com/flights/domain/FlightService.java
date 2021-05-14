@@ -12,8 +12,6 @@ class FlightService{
         double weightBaggage = 0;
         double weightCargo = 0;
 
-        Converter lbToKgConverter = (weight) -> weight * 0.4359237;
-        Converter kgToLbConverter = (weight) -> weight * 2.205;
         Round roundToTwo = (digit) -> Math.round(digit * 100.0) / 100.0;
 
         List<FlightBaggageDto> flightBaggies = flightBaggiesRepo
@@ -43,10 +41,7 @@ class FlightService{
                     .filter(baggageDto -> baggageDto.getId().equals(flightBaggageDto.getBaggageId()))
                     .collect(Collectors.toList());
 
-            double weightInKg = baggage.get(0).getWeightUnit().equals("kg") ? (double) baggage.get(0).getWeight() : lbToKgConverter.convertWeightUnits(baggage.get(0).getWeight());
-            double weightInLb = baggage.get(0).getWeightUnit().equals("kg") ? kgToLbConverter.convertWeightUnits(baggage.get(0).getWeight()) : (double) baggage.get(0).getWeight();
-
-            weightBaggage += weightUnit.equals("kg") ? weightInKg : weightInLb;
+            weightBaggage += weightInUnit(baggage.get(0), weightUnit);
         }
 
         for (FlightCargoDto flightCargoDto:flightCargos
@@ -56,10 +51,7 @@ class FlightService{
                     .filter(baggageDto -> baggageDto.getId().equals(flightCargoDto.getCargoId()))
                     .collect(Collectors.toList());
 
-            double weightInKg = cargo.get(0).getWeightUnit().equals("kg") ? (double) cargo.get(0).getWeight() : lbToKgConverter.convertWeightUnits(cargo.get(0).getWeight());
-            double weightInLb = cargo.get(0).getWeightUnit().equals("kg") ? kgToLbConverter.convertWeightUnits(cargo.get(0).getWeight()) : (double) cargo.get(0).getWeight();
-
-            weightCargo += weightUnit.equals("kg") ? weightInKg : weightInLb;
+            weightCargo += weightInUnit(cargo.get(0), weightUnit);
         }
 
         return FlightDetailsDto.builder()
@@ -68,5 +60,15 @@ class FlightService{
                 .totalWeight(roundToTwo.round(weightBaggage+weightCargo))
                 .weightUnit(weightUnit)
                 .build();
+    }
+
+    private double weightInUnit(BaggageDto weight, String unit){
+
+        Converter lbToKgConverter = (weightDouble) -> weightDouble * 0.45359237;
+        Converter kgToLbConverter = (weightDouble) -> weightDouble * 2.205;
+        double weightInKg = weight.getWeightUnit().equals("kg") ? (double) weight.getWeight() : lbToKgConverter.convertWeightUnits(weight.getWeight());
+        double weightInLb = weight.getWeightUnit().equals("kg") ? kgToLbConverter.convertWeightUnits(weight.getWeight()) : (double) weight.getWeight();
+
+        return unit.equals("kg") ? weightInKg : weightInLb;
     }
 }

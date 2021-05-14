@@ -1,6 +1,6 @@
 package com.flights.domain;
 
-import com.flights.dto.AirportDetails;
+import com.flights.dto.AirportDetailsDto;
 import com.flights.dto.BaggageDto;
 import com.flights.dto.FlightBaggageDto;
 import com.flights.dto.FlightDto;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class AirportService {
-    protected AirportDetails getDeparturesArrivalsPieces(String codeIATA, List<Flight> flightsRepo,List<FlightBaggage> flightBaggiesRepo, List<Baggage> baggiesRepo){
+    protected AirportDetailsDto getDeparturesArrivalsPieces(String codeIATA, List<Flight> flightsRepo, List<FlightBaggage> flightBaggiesRepo, List<Baggage> baggiesRepo){
 
         List<FlightDto> flightsDeparting = flightsRepo
                 .stream()
@@ -27,7 +27,7 @@ class AirportService {
         Integer piecesDeparting = sumPiecesFromFlight(flightsDeparting, flightBaggiesRepo, baggiesRepo);
         Integer piecesArriving = sumPiecesFromFlight(flightsArriving, flightBaggiesRepo, baggiesRepo);
 
-        return AirportDetails.builder()
+        return AirportDetailsDto.builder()
                 .flightsDeparting(flightsDeparting.size())
                 .flightsArriving(flightsArriving.size())
                 .piecesDeparting(piecesDeparting)

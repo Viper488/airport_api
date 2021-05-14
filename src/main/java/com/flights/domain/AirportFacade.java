@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Transactional
 public class AirportFacade {
@@ -32,7 +31,7 @@ public class AirportFacade {
         this.flightService = flightService;
     }
 
-    public AirportDetails getDeparturesArrivalsFlightsPieces(String codeIATA, String date){
+    public AirportDetailsDto getDeparturesArrivalsFlightsPieces(String codeIATA, String date){
         List<Flight> flights = flightRepository.findFlights(codeIATA,date);
         List<FlightBaggage> flightBaggies = flightBaggageRepository.findAll();
         List<Baggage> baggies = baggageRepository.findAll();

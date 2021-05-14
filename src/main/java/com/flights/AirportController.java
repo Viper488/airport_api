@@ -26,7 +26,7 @@ class AirportController {
     }
 
     @GetMapping("/api/pieces/{iata}/{date}")
-    AirportDetails getPieces(@PathVariable("iata") String codeIATA, @PathVariable("date") String date) {
+    AirportDetailsDto getPieces(@PathVariable("iata") String codeIATA, @PathVariable("date") String date) {
         return airportFacade.getDeparturesArrivalsFlightsPieces(codeIATA, date);
     }
 }
