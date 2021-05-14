@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Flights</title>
+</head>
+<body>
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col">
+            <h3>Flight</h3>
+            <div class="mb-3">
+                <label for="flightNumber" class="form-label">Flight number:</label>
+                <input type="number" class="form-control" id="flightNumber" placeholder="4197">
+                <label for="flightDate" class="form-label">Flight departure date:</label>
+                <input type="text" class="form-control" id="flightDate" placeholder="2019-05-27">
+                <label for="flightUnit" class="form-label">Weight unit:</label>
+                <select id="flightUnit" class="form-select select-unit" aria-label="Default select example">
+                    <option value="kg">kg</option>
+                    <option value="lb">lb</option>
+                </select>
+                <button type="button" class="btn btn-primary" id="findFlight">Find flight!</button>
+            </div>
+        </div>
+        <div class="col">
+            <h3>Airport</h3>
+            <div class="mb-3">
+                <label for="codeIATA" class="form-label">IATA Airport Code</label>
+                <input type="text" class="form-control" id="codeIATA" placeholder="MIT">
+                <label for="airportDate" class="form-label">Date</label>
+                <input type="text" class="form-control" id="airportDate" placeholder="2017-05-12">
+                <button type="button" class="btn btn-primary" id="findAirport">Find airport!</button>
+            </div>
+        </div>
+    </div>
+    <div id="tableHolder">
+
+    </div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $('#findFlight').click(function() {
+            $.get('http://localhost:8080/api/flights/details', {
+                number: $("#flightNumber").val(),
+                date: $("#flightDate").val(),
+                unit: $("select.select-unit").children("option:selected").val()
+            }, function (data, textStatus, jqXHR) {
+
+                console.log('data: ', data);
+                var html = '<table class="table">\n' +
+                    '  <thead>\n' +
+                    '    <tr>\n' +
+                    '      <th scope="col">#</th>\n' +
+                    '      <th scope="col">cargoWeight</th>\n' +
+                    '      <th scope="col">baggageWeight</th>\n' +
+                    '      <th scope="col">totalWeight</th>\n' +
+                    '      <th scope="col">weightUnit</th>\n' +
+                    '    </tr>\n' +
+                    '  </thead>\n' +
+                    '  <tbody>';
+                html += '<tr>';
+                html += '<th scope="row">1</th>';
+                html += '<td>' + data.cargoWeight + '</td>';
+                html += '<td>' + data.baggageWeight + '</td>';
+                html += '<td>' + data.totalWeight + '</td>';
+                html += '<td>' + data.weightUnit + '</td>';
+                html += '</tr>';
+                html += '</tbody>';
+                html += '</table>';
+                $('#tableHolder').html(html);
+            }).fail(function () {
+                $('#tableHolder').html("<div style='text-align: center; color: red;'>Something went wrong. Check if form inputs aren't empty</div>");
+            });
+    })
+    $('#findAirport').click(
+        function () {
+            $.get('http://localhost:8080/api/airport/details', {iata: $("#codeIATA").val(), date: $("#airportDate").val()}, function (data, textStatus, jqXHR) {
+
+                console.log('data: ', data);
+                var html = '<table class="table">\n' +
+                    '  <thead>\n' +
+                    '    <tr>\n' +
+                    '      <th scope="col">#</th>\n' +
+                    '      <th scope="col">flightsDeparting</th>\n' +
+                    '      <th scope="col">flightsArriving</th>\n' +
+                    '      <th scope="col">piecesDeparting</th>\n' +
+                    '      <th scope="col">piecesArriving</th>\n' +
+                    '    </tr>\n' +
+                    '  </thead>\n' +
+                    '  <tbody>';
+                html += '<tr>';
+                html += '<th scope="row">1</th>';
+                html += '<td>'+data.flightsDeparting+'</td>';
+                html += '<td>'+data.flightsArriving+'</td>';
+                html += '<td>'+data.piecesDeparting+'</td>';
+                html += '<td>'+data.piecesArriving+'</td>';
+                html += '</tr>';
+                html += '</tbody>';
+                html += '</table>';
+                $('#tableHolder').html(html);
+            }).fail(function() {
+                $('#tableHolder').html("<div style='text-align: center; color: red;'>Mam problem z wyświetleniem danych... :/ (musisz uruchomić aplikacje za pomocą MAVEN)</div>");
+            });
+        }
+    )
+</script>
+</body>
+</html>

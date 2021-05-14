@@ -4,9 +4,7 @@ import com.flights.domain.AirportFacade;
 import com.flights.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 class AirportController {
@@ -20,13 +18,15 @@ class AirportController {
         this.airportFacade = airportFacade;
     }
 
-    @GetMapping("/api/flights/details/{number}/{date}/{unit}")
-    FlightDetailsDto getFlightDetails(@PathVariable("number") Integer flightNumber, @PathVariable("date") String date, @PathVariable("unit") String weightUnit) {
+    @CrossOrigin
+    @GetMapping("/api/flights/details")
+    FlightDetailsDto getFlightDetails(@RequestParam("number") Integer flightNumber, @RequestParam("date") String date, @RequestParam("unit") String weightUnit) {
         return airportFacade.getFlightDetails(flightNumber, date, weightUnit);
     }
 
-    @GetMapping("/api/pieces/{iata}/{date}")
-    AirportDetailsDto getPieces(@PathVariable("iata") String codeIATA, @PathVariable("date") String date) {
+    @CrossOrigin
+    @GetMapping("/api/airport/details")
+    AirportDetailsDto getPieces(@RequestParam("iata") String codeIATA, @RequestParam("date") String date) {
         return airportFacade.getDeparturesArrivalsFlightsPieces(codeIATA, date);
     }
 }

@@ -12,6 +12,8 @@ class FlightService{
         double weightBaggage = 0;
         double weightCargo = 0;
 
+        weightUnit = weightUnit.equals("kg") ? "kg" : "lb";
+
         Round roundToTwo = (digit) -> Math.round(digit * 100.0) / 100.0;
 
         List<FlightBaggageDto> flightBaggies = flightBaggiesRepo
