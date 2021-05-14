@@ -11,6 +11,16 @@ class AirportConfiguration {
                                        CargoRepository cargoRepository,
                                        FlightBaggageRepository flightBaggageRepository,
                                        FlightCargoRepository flightCargoRepository) {
-        return new AirportFacade(flightRepository, baggageRepository, cargoRepository, flightBaggageRepository, flightCargoRepository);
+
+        AirportService airportService = new AirportService();
+        FlightService flightService = new FlightService();
+        return new AirportFacade(
+                flightRepository,
+                baggageRepository,
+                cargoRepository,
+                flightBaggageRepository,
+                flightCargoRepository,
+                airportService,
+                flightService);
     }
 }

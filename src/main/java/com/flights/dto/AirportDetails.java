@@ -4,10 +4,11 @@ import lombok.*;
 
 @Builder(toBuilder = true)
 @Getter
+@ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepartArrivalDto {
+public class AirportDetails {
     Integer flightsDeparting;
     Integer flightsArriving;
     Integer piecesDeparting;

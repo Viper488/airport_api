@@ -6,5 +6,6 @@ import java.util.List;
 
 interface FlightBaggageRepository extends Repository<FlightBaggage, Long> {
 
+    List<FlightBaggage> findAll();
     List<FlightBaggage> findFlightBaggageByFlightId(Long flightId);
 }
