@@ -80,8 +80,4 @@ http://localhost:8080/api/airport/details?iata=MIT&date=2019
 ## FRONTEND
 Simple front end to let user browse the data. Written in HTML5, jQuery and using Bootstrap.
 
-![plot](./flight_kg.png)
 
-![plot](./flight_lb.png)
-
-![plot](./airport.png)
