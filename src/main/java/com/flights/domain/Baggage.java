@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "baggage")
-public class Baggage {
+class Baggage {
     @Id
     @Column(name = "id")
     private Long id;

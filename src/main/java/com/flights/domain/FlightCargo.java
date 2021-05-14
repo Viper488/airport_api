@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "flight_cargo")
-public class FlightCargo {
+class FlightCargo {
     @Id
     @Column(name = "id")
     private Long id;

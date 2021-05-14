@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface FlightRepository extends Repository<Flight, Long> {
+interface FlightRepository extends Repository<Flight, Long> {
     List<Flight> findAll();
 
     Flight findFlightByFlightNumberAndDepartureDateContaining(

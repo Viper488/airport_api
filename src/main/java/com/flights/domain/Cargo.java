@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cargo")
-public class Cargo {
+class Cargo {
     @Id
     @Column(name = "id")
     private Long id;

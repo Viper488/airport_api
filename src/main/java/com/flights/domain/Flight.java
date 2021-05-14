@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "flights")
-public class Flight {
+class Flight {
     @Id
     @Column(name = "flight_id")
     private Long flightId;

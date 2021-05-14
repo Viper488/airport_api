@@ -4,9 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AirportConfiguration {
+class AirportConfiguration {
     @Bean
-    public AirportFacade airportFacade(FlightRepository flightRepository,
+    AirportFacade airportFacade(FlightRepository flightRepository,
                                        BaggageRepository baggageRepository,
                                        CargoRepository cargoRepository,
                                        FlightBaggageRepository flightBaggageRepository,
