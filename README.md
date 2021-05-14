@@ -2,7 +2,7 @@
 
 Recruit task.
 
-Simple Spring based application calculating and showing airport and flight to user.
+Simple Spring based application calculating and showing airport and flight data to user.
 
 ##BACKEND
 
